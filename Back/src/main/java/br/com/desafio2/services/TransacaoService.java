@@ -5,8 +5,8 @@ import br.com.desafio2.repositories.TransacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class TransacaoService {
@@ -15,6 +15,12 @@ public class TransacaoService {
 
     public List<TransacaoEntity> buscarTodasAsTransacoes(){
         return transacaoRepository.findAll();
+    }
+
+    public List<TransacaoEntity> buscarTransacaoPorCategoria(String categoria){
+        return buscarTodasAsTransacoes().stream()
+                .filter(transacao -> transacao.getCategoria().equals(categoria))
+                .collect(Collectors.toList());
     }
 
     public Optional<TransacaoEntity> buscarTransacaoPorId(Integer id){
@@ -40,5 +46,29 @@ public class TransacaoService {
     // DELETE
     public void apagarTodasAsTransacoes(){
         transacaoRepository.deleteAll();
+    }
+
+    public List<String> obterCategorias(){
+        List<TransacaoEntity> lista = buscarTodasAsTransacoes();
+        Set<String> categorias = new HashSet<>();
+        for(TransacaoEntity transacao : lista){
+            categorias.add(transacao.getCategoria());
+        }
+        return new ArrayList<>(categorias);
+    }
+
+    public double retornarValorTotalOuCategoria(String categoriaAlvo){
+        List<TransacaoEntity> lista = buscarTodasAsTransacoes();
+        double total = 0;
+        if(categoriaAlvo.equals("todas")){
+            return lista.stream()
+                    .mapToDouble(transacao -> transacao.getValor())
+                    .sum();
+        } else{
+            return lista.stream()
+                    .filter(transacao -> transacao.getCategoria().equals(categoriaAlvo))
+                    .mapToDouble(transacao -> transacao.getValor())
+                    .sum();
+        }
     }
 }

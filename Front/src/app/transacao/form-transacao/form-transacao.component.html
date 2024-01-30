@@ -1,0 +1,17 @@
+<div>
+    <button (click)="inserirTransacao()">Adicionar transações</button>
+    <button (click)="alterarTransacao()">Alterar transação por ID</button>
+    <button (click)="limparTodasAsTransacoes()">Limpar todas as transações</button>
+
+</div>
+<div class="adicionar borda-geral" *ngIf="caixaTexto && !caixaId">
+    <textarea type="text" placeholder="Insira as transações separadas por vírgula" [(ngModel)]="stringTransacao" ></textarea><br>
+    <button (click)="salvar()" >Salvar</button>
+    <button (click)="limpar()">Limpar</button>
+</div>
+<div class="alterar borda-geral" *ngIf="!caixaTexto && caixaId">
+    <input type="number" placeholder="Insira o id" [(ngModel)]="idTransacao">
+    <input type="text" placeholder="Insira a transação atualizada" [(ngModel)]="transacaoAtualizada" ><br>
+    <button (click)="alterar()" >Alterar</button>
+    <button (click)="limpar()">Limpar</button>
+</div>

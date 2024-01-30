@@ -1,0 +1,45 @@
+button {
+    margin: 5px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+    margin: 5px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+}
+
+textarea{
+    resize: none;
+    width: 250px;
+}
+
+.borda-geral{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 10px;
+    
+    height: 100px;
+}
+
+div {
+    margin-bottom: 10px;
+}
+
+.adicionar {
+    width: 300px; 
+}
+
+.alterar{
+    width: 500px;
+}

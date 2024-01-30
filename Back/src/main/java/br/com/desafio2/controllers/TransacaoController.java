@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("transacao")
-// @CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 public class TransacaoController {
     @Autowired
     private TransacaoService transacaoService;
@@ -23,9 +23,24 @@ public class TransacaoController {
         return transacaoService.buscarTodasAsTransacoes();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/porId/{id}")
     public Optional<TransacaoEntity> buscarTransacaoPorId(@PathVariable Integer id){
         return transacaoService.buscarTransacaoPorId(id);
+    }
+
+    @GetMapping("/porCategoria/{categoria}")
+    public List<TransacaoEntity> buscarTransacaoPorCategoria(@PathVariable String categoria){
+        return transacaoService.buscarTransacaoPorCategoria(categoria);
+    }
+
+    @GetMapping("/categorias")
+    public List<String> obterCategorias(){
+        return transacaoService.obterCategorias();
+    }
+
+    @GetMapping("/valor/{categoria}")
+    public double obterValorTotalOuCategoria(@PathVariable String categoria){
+        return transacaoService.retornarValorTotalOuCategoria(categoria);
     }
 
     @PostMapping
@@ -38,7 +53,15 @@ public class TransacaoController {
         }
     }
 
-    // FALTA FAZER O PUT e o de retornar os valores
+    @PutMapping
+    public ResponseEntity atualizarTransacao(@RequestBody TransacaoEntity transacao){
+        if(transacao.getId() != null){
+            transacaoService.inserirOuAtualizarTransacao(transacao);
+            return ResponseEntity.status(200).build();
+        } else{
+            return new ResponseEntity<>(0, HttpStatus.FORBIDDEN);
+        }
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity apagarTransacao(@PathVariable Integer id){

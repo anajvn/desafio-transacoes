@@ -1,0 +1,38 @@
+<app-form-transacao id="formTransacao" [transacao] = "transacaoSelecionada" (statusParaAtualizacao)="consultarTodasAsTransacoes()"></app-form-transacao>
+<br><br>
+<div class="filtros">
+    <!-- <label for="filtroData">Filtrar por Data:</label>
+    <input type="date" id="filtroData" (change)="selecaoData($event)">
+    <br> -->
+    <div>
+        <label for="seletor">CATEGORIA: </label>
+        <select id="seletor" (change)="selecaoCategoria($event)">
+        <option *ngFor="let categoria of listaCategorias; index as i" value="{{categoria}}">{{categoria}}</option>
+    </select>
+    </div>
+    <span id="valorTotal">VALOR: R$ {{valorTotal}}</span>
+</div>
+<br>
+<div>
+    <table>
+        <thead>
+            <th> Id </th>
+            <th> Data </th>
+            <th> Valor </th>
+            <th> Categoria </th>
+            <th> Ação </th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let transacao of listaTransacoes; index as i">
+                <td>{{transacao.id}}</td>
+                <td>{{transacao.data}}</td>
+                <td>R$ {{transacao.valor?.toFixed(2)}}</td>
+                <td>{{transacao.categoria}}</td>
+                <td class="app-botoes-acao">
+                    <app-botoes-acao [transacao]="transacao" (statusParaAtualizacao)="consultarTodasAsTransacoes()"></app-botoes-acao>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+</div>
