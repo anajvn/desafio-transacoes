@@ -4,7 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { TransacaoComponent } from './transacao/transacao.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent},
+  { path: '', component: HomeComponent, title:"Financial Transactions System"},
   { path: 'transacoes', pathMatch: 'full', component:TransacaoComponent},
   
 ];
